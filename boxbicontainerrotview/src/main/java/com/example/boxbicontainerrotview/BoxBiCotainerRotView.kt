@@ -51,7 +51,7 @@ fun Canvas.drawBoxBiContainerRot(scale : Float, w : Float, h : Float, paint : Pa
     for (j in 0..1) {
         save()
         scale(1f - 2 * j, 1f)
-        translate((w / 2 + paint.strokeWidth - size / 2) * (1 - sc2), 0f)
+        translate(size / 2 + (w / 2 + paint.strokeWidth - size / 2) * (1 - sc2), 0f)
         drawLine(0f, 0f, 0f, -barH, paint)
         restore()
     }
@@ -95,7 +95,7 @@ class BoxBiCotainerRotView(ctx : Context) : View(ctx) {
         var prevScale : Float = 0f
     ) {
         fun update(cb : (Float) -> Unit) {
-            scale += scGap * prevScale
+            scale += scGap * dir
             if (Math.abs(scale - prevScale) > 1) {
                 scale = prevScale + dir
                 dir = 0f

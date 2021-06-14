@@ -179,7 +179,7 @@ class BoxBiCotainerRotView(ctx : Context) : View(ctx) {
         }
     }
 
-    data class BoxBiContainer {
+    data class BoxBiContainer(private var i : Int) {
 
         private var curr : BBCRNode = BBCRNode(0)
         private var dir : Int = 1
@@ -199,6 +199,29 @@ class BoxBiCotainerRotView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : BoxBiCotainerRotView) {
+
+        private var bbcr : BoxBiContainer = BoxBiContainer(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            bbcr.draw(canvas, paint)
+            animator.animate {
+                bbcr.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bbcr.startUpdating {
+                animator.start()
+            }
         }
     }
 }

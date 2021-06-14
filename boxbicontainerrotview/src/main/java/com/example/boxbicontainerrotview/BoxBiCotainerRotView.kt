@@ -226,4 +226,13 @@ class BoxBiCotainerRotView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BoxBiCotainerRotView {
+            val view : BoxBiCotainerRotView = BoxBiCotainerRotView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
